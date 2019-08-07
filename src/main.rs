@@ -1,4 +1,5 @@
 use std::io;
+use std::io::Write;
 
 fn main() {
     println!("welcome to health logger!");
@@ -7,6 +8,15 @@ fn main() {
 
     loop {
         user_input.clear();
+        print!(">> ");
+        match io::stdout().flush() {
+            Err(e) => {
+                print!("{}", e);
+                return;
+            },
+            Ok(_) => {;}
+        };
+        
         //println!("user input is {}", user_input);
         io::stdin().read_line(&mut user_input)
             .expect("failed to read line");
